@@ -6,12 +6,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class ECommands implements CommandExecutor {
+public class EmailCommands implements CommandExecutor {
 	
-	@SuppressWarnings("unused")
 	private Email plugin;
 
-	public ECommands(Email plugin) {
+	public EmailCommands(Email plugin) {
 		this.plugin = plugin;
 	}
 
@@ -60,10 +59,12 @@ public class ECommands implements CommandExecutor {
 				return true;
 			} else if(opt.equalsIgnoreCase("set")) {
 				if(args.length == 2 && isPlayer && sender.hasPermission("Email.set")) {
-					sender.sendMessage("TODO: Set player's email to "+args[1]);
+					plugin.emails.setPlayerEmail(sender.getName(), args[1]);
+					sender.sendMessage(ChatColor.GREEN+"Email set");
 					return true;
 				} else if(args.length == 3 && sender.hasPermission("Email.set.other")) {
-					sender.sendMessage("TODO: Set "+args[1]+"'s email to "+args[2]);
+					plugin.emails.setPlayerEmail(args[1], args[2]);
+					sender.sendMessage(ChatColor.GREEN+"Email set");
 					return true;
 				} else {
 					sender.sendMessage(msgUseHelp);
@@ -71,10 +72,12 @@ public class ECommands implements CommandExecutor {
 				}
 			} else if(opt.equalsIgnoreCase("remove")) {
 				if(args.length == 1 && isPlayer && sender.hasPermission("Email.remove")) {
-					sender.sendMessage("TODO: Remove player's email");
+					plugin.emails.removePlayerEmail(sender.getName());
+					sender.sendMessage(ChatColor.GREEN+"Email removed");
 					return true;
 				} else if(args.length == 2 && sender.hasPermission("Email.remove.other")) {
-					sender.sendMessage("TODO: Remove "+args[1]+"'s email");
+					plugin.emails.removePlayerEmail(args[1]);
+					sender.sendMessage(ChatColor.GREEN+"Email removed");
 					return true;
 				} else {
 					sender.sendMessage(msgUseHelp);
@@ -82,10 +85,20 @@ public class ECommands implements CommandExecutor {
 				}
 			} else if(opt.equalsIgnoreCase("view")) {
 				if(args.length == 1 && isPlayer && sender.hasPermission("Email.view")) {
-					sender.sendMessage("TODO: Display player's email");
+					String email = plugin.emails.getPlayerEmail(sender.getName());
+					if(email != null) {
+						sender.sendMessage(ChatColor.GREEN+"The email is: "+ChatColor.YELLOW+email);
+					} else {
+						sender.sendMessage(ChatColor.RED+"You don't have an email set");
+					}
 					return true;
 				} else if(args.length == 2 && sender.hasPermission("Email.view.other")) {
-					sender.sendMessage("TODO: Display "+args[1]+"'s email");
+					String email = plugin.emails.getPlayerEmail(args[1]);
+					if(email != null) {
+						sender.sendMessage(ChatColor.GREEN+"The email is: "+ChatColor.YELLOW+email);
+					} else {
+						sender.sendMessage(ChatColor.RED+"That player does not have an email set");
+					}
 					return true;
 				} else {
 					sender.sendMessage(msgUseHelp);

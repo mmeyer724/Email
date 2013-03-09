@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
 
 public class Email extends JavaPlugin {
+	
+	public EmailManager emails;
 
 	@Override
 	public void onDisable() {
@@ -14,6 +16,8 @@ public class Email extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		emails = new EmailManager(this);
+		
 		//Enable plugin metrics
 		try {
 			MetricsLite metrics = new MetricsLite(this);
@@ -21,7 +25,7 @@ public class Email extends JavaPlugin {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.getCommand("email").setExecutor(new ECommands(this));
+		this.getCommand("email").setExecutor(new EmailCommands(this));
 		this.getLogger().info("Enabled successfully");
 	}
 }
