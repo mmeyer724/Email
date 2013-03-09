@@ -45,16 +45,16 @@ public class ECommands implements CommandExecutor {
 				}
 				if(sender.hasPermission("Email.view")) {
 					sender.sendMessage(ChatColor.AQUA+"To view your email (players only): ");
-					sender.sendMessage("/email view");
+					sender.sendMessage(ChatColor.YELLOW+"/email view");
 				}
 				if(sender.hasPermission("Email.view.other")) {
 					sender.sendMessage(ChatColor.AQUA+"To view a player's email: ");
-					sender.sendMessage("/email view <player name>");
+					sender.sendMessage(ChatColor.YELLOW+"/email view <player name>");
 				}
 				if(sender.hasPermission("Email.export")) {
 					sender.sendMessage(ChatColor.AQUA+"To export emails to a text file: ");
 					sender.sendMessage(ChatColor.YELLOW+"/email export <type, either 1 or 2>");
-					sender.sendMessage("Type 1 will output names and emails, type 2 will only export emails.");
+					sender.sendMessage(ChatColor.YELLOW+"Type 1 will output names and emails, type 2 will only export emails.");
 				}
 				sender.sendMessage(ChatColor.GREEN+"~~~ End Email help ~~~");
 				return true;
