@@ -49,7 +49,7 @@ public class EmailCommands implements CommandExecutor {
 					sender.sendMessage(ChatColor.AQUA+"To set your email (players only): ");
 					sender.sendMessage(ChatColor.YELLOW+"/email set youremail@website.com");
 				}
-				if(sender.hasPermission("Email.set.other")) {
+				if(sender.hasPermission("Email.set.others")) {
 					sender.sendMessage(ChatColor.AQUA+"To set a player's email: ");
 					sender.sendMessage(ChatColor.YELLOW+"/email set <player name> youremail@website.com");
 				}
@@ -57,7 +57,7 @@ public class EmailCommands implements CommandExecutor {
 					sender.sendMessage(ChatColor.AQUA+"To remove your email (players only): ");
 					sender.sendMessage(ChatColor.YELLOW+"/email remove");
 				}
-				if(sender.hasPermission("Email.remove.other")) {
+				if(sender.hasPermission("Email.remove.others")) {
 					sender.sendMessage(ChatColor.AQUA+"To remove a player's email: ");
 					sender.sendMessage(ChatColor.YELLOW+"/email remove <player name>");
 				}
@@ -65,7 +65,7 @@ public class EmailCommands implements CommandExecutor {
 					sender.sendMessage(ChatColor.AQUA+"To view your email (players only): ");
 					sender.sendMessage(ChatColor.YELLOW+"/email view");
 				}
-				if(sender.hasPermission("Email.view.other")) {
+				if(sender.hasPermission("Email.view.others")) {
 					sender.sendMessage(ChatColor.AQUA+"To view a player's email: ");
 					sender.sendMessage(ChatColor.YELLOW+"/email view <player name>");
 				}
@@ -81,7 +81,7 @@ public class EmailCommands implements CommandExecutor {
 					boolean result = plugin.emails.setPlayerEmail(sender.getName(), args[1]);
 					sender.sendMessage((result) ? ChatColor.GREEN+"Email set" : ChatColor.RED+"Invalid email");
 					return true;
-				} else if(args.length == 3 && sender.hasPermission("Email.set.other")) {
+				} else if(args.length == 3 && sender.hasPermission("Email.set.others")) {
 					boolean result = plugin.emails.setPlayerEmail(args[1], args[2]);
 					sender.sendMessage((result) ? ChatColor.GREEN+"Email set" : ChatColor.RED+"Invalid email");
 					return true;
@@ -94,7 +94,7 @@ public class EmailCommands implements CommandExecutor {
 					plugin.emails.removePlayerEmail(sender.getName());
 					sender.sendMessage(ChatColor.GREEN+"Email removed");
 					return true;
-				} else if(args.length == 2 && sender.hasPermission("Email.remove.other")) {
+				} else if(args.length == 2 && sender.hasPermission("Email.remove.others")) {
 					plugin.emails.removePlayerEmail(args[1]);
 					sender.sendMessage(ChatColor.GREEN+"Email removed");
 					return true;
@@ -111,7 +111,7 @@ public class EmailCommands implements CommandExecutor {
 						sender.sendMessage(ChatColor.RED+"You don't have an email set");
 					}
 					return true;
-				} else if(args.length == 2 && sender.hasPermission("Email.view.other")) {
+				} else if(args.length == 2 && sender.hasPermission("Email.view.others")) {
 					String email = plugin.emails.getPlayerEmail(args[1]);
 					if(email != null) {
 						sender.sendMessage(ChatColor.GREEN+"The email is: "+ChatColor.YELLOW+email);
