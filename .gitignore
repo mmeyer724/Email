@@ -1,4 +1,10 @@
 *.class
+.settings/*
+.project
+.classpath
+bin/*
+target/*
+dependency-reduced-pom.xml
 
 # Package Files #
 *.jar
