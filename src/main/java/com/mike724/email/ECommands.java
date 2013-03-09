@@ -23,7 +23,7 @@ public class ECommands implements CommandExecutor {
 				return true;
 			}
 			boolean isPlayer   = sender instanceof Player;
-			String msgUseHelp  = ChatColor.RED+"Invalid command usage, use '/email help' for help.";
+			String msgUseHelp  = ChatColor.RED+"Invalid command usage or no permission, use '/email help' for help.";
 			String opt = args[0];
 			if(opt.equalsIgnoreCase("help")) {
 				sender.sendMessage(ChatColor.GREEN+"~~~ Start Email help ~~~");
