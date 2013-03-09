@@ -107,6 +107,23 @@ public class EmailCommands implements CommandExecutor {
 					sender.sendMessage(msgUseHelp);
 					return true;
 				}
+			} else if(opt.equalsIgnoreCase("export")) {
+				if(args.length == 2 && sender.hasPermission("Email.export")) {
+					if(args[1].equalsIgnoreCase("1")) {
+						plugin.emails.export(1);
+						sender.sendMessage(ChatColor.GREEN+"Emails and names exported");
+						return true;
+					} else if(args[1].equalsIgnoreCase("2")) {
+						plugin.emails.export(2);
+						sender.sendMessage(ChatColor.GREEN+"Emails exported");
+						return true;
+					} else {
+						sender.sendMessage(ChatColor.RED+"Incorrect type, must be 1 or 2.");
+					}
+				} else {
+					sender.sendMessage(msgUseHelp);
+					return true;
+				}
 			} else if(opt.equalsIgnoreCase("info")) {
 				PluginDescriptionFile pdf = plugin.getDescription();
 				String name = ChatColor.YELLOW+pdf.getName()+ChatColor.AQUA;
