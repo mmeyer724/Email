@@ -21,6 +21,7 @@ public class Email extends JavaPlugin {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.getCommand("email").setExecutor(new ECommands(this));
 		this.getLogger().info("Enabled successfully");
 	}
 }
