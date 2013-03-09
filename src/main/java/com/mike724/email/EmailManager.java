@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -13,16 +15,28 @@ public class EmailManager {
 	private FileConfiguration config;
 	private String root = "emails.";
 	private Email plugin;
+	
+	private Pattern pattern;
+	private Matcher matcher;
+	private static final String EMAIL_PATTERN = 
+		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 	public EmailManager(Email plugin) {
 		this.plugin = plugin;
+		pattern = Pattern.compile(EMAIL_PATTERN);
 		configA = new ConfigAccessor(plugin, "emails.yml");
 		config = configA.getConfig();
 	}
 	
-	public void setPlayerEmail(String name, String email) {
+	public boolean setPlayerEmail(String name, String email) {
+		this.matcher = this.pattern.matcher(email);
+		if(!this.matcher.matches()) {
+			return false;
+		}
 		config.set(root+name, email);
 		configA.saveConfig();
+		return true;
 	}
 	
 	public String getPlayerEmail(String name) {

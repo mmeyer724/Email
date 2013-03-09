@@ -62,12 +62,12 @@ public class EmailCommands implements CommandExecutor {
 				return true;
 			} else if(opt.equalsIgnoreCase("set")) {
 				if(args.length == 2 && isPlayer && sender.hasPermission("Email.set")) {
-					plugin.emails.setPlayerEmail(sender.getName(), args[1]);
-					sender.sendMessage(ChatColor.GREEN+"Email set");
+					boolean result = plugin.emails.setPlayerEmail(sender.getName(), args[1]);
+					sender.sendMessage((result) ? ChatColor.GREEN+"Email set" : ChatColor.RED+"Invalid email");
 					return true;
 				} else if(args.length == 3 && sender.hasPermission("Email.set.other")) {
-					plugin.emails.setPlayerEmail(args[1], args[2]);
-					sender.sendMessage(ChatColor.GREEN+"Email set");
+					boolean result = plugin.emails.setPlayerEmail(args[1], args[2]);
+					sender.sendMessage((result) ? ChatColor.GREEN+"Email set" : ChatColor.RED+"Invalid email");
 					return true;
 				} else {
 					sender.sendMessage(msgUseHelp);
