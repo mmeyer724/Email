@@ -35,7 +35,8 @@ public class EmailManager {
 	}
 	
 	public void export(int type) {
-		if(type != 1 || type !=2) {
+		if(!(type == 1 || type == 2)) {
+			plugin.getLogger().info("Incorrect export type");
 			return;
 		}
 		File file = new File(plugin.getDataFolder(), "export-type1.txt");
