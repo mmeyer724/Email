@@ -1,7 +1,7 @@
 package com.mike724.email;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Set;
 
@@ -40,7 +40,7 @@ public class EmailManager {
 		}
 		File file = new File(plugin.getDataFolder(), "export-type1.txt");
 		try {
-			PrintWriter pw = new PrintWriter(file);
+			PrintWriter pw = new PrintWriter(new FileWriter(file));
 			Set<String> keys = config.getConfigurationSection("emails").getKeys(false);
 			for(String key : keys) {
 				String line = "";
@@ -52,7 +52,8 @@ public class EmailManager {
 				pw.println(line);
 			}
 			pw.close();
-		} catch (FileNotFoundException e) {
+			plugin.getLogger().info("Export file created at "+file.getPath());
+		} catch (Exception e) {
 			plugin.getLogger().severe("Could not export emails");
 			e.printStackTrace();
 			return;
