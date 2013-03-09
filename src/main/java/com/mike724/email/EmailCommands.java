@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 
 public class EmailCommands implements CommandExecutor {
 	
@@ -26,6 +27,8 @@ public class EmailCommands implements CommandExecutor {
 			String opt = args[0];
 			if(opt.equalsIgnoreCase("help")) {
 				sender.sendMessage(ChatColor.GREEN+"~~~ Start Email help ~~~");
+				sender.sendMessage(ChatColor.AQUA+"To view plugin information: ");
+				sender.sendMessage(ChatColor.YELLOW+"/email info");
 				if(sender.hasPermission("Email.set")) {
 					sender.sendMessage(ChatColor.AQUA+"To set your email (players only): ");
 					sender.sendMessage(ChatColor.YELLOW+"/email set youremail@website.com");
@@ -104,6 +107,13 @@ public class EmailCommands implements CommandExecutor {
 					sender.sendMessage(msgUseHelp);
 					return true;
 				}
+			} else if(opt.equalsIgnoreCase("info")) {
+				PluginDescriptionFile pdf = plugin.getDescription();
+				String name = ChatColor.YELLOW+pdf.getName()+ChatColor.AQUA;
+				String version = ChatColor.YELLOW+pdf.getVersion()+ChatColor.AQUA;
+				String author = ChatColor.YELLOW+pdf.getAuthors().get(0)+ChatColor.AQUA;
+				sender.sendMessage(name+" version "+version+" by "+author+" is "+ChatColor.GREEN+"running.");
+				return true;
 			}
 			sender.sendMessage(msgUseHelp);
 			return true;
