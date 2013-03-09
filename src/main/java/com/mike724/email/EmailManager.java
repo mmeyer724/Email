@@ -36,10 +36,13 @@ public class EmailManager {
 	
 	public void export(int type) {
 		if(!(type == 1 || type == 2)) {
-			plugin.getLogger().info("Incorrect export type");
 			return;
 		}
-		File file = new File(plugin.getDataFolder(), "export-type1.txt");
+		String fName = "export-type1.txt";
+		if(type == 2) {
+			fName = "export-type2.txt";
+		}
+		File file = new File(plugin.getDataFolder(), fName);
 		try {
 			PrintWriter pw = new PrintWriter(new FileWriter(file));
 			Set<String> keys = config.getConfigurationSection("emails").getKeys(false);
