@@ -1,0 +1,8 @@
+name: Email
+main: com.mike724.email.Email
+author: Mike724
+version: ${version}
+commands:
+    email:
+        description: Manage your email entry
+        usage: /<command> help
