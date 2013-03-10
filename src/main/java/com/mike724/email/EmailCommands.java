@@ -17,10 +17,13 @@
 package com.mike724.email;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 public class EmailCommands implements CommandExecutor {
@@ -68,6 +71,16 @@ public class EmailCommands implements CommandExecutor {
 				if(sender.hasPermission("Email.view.others")) {
 					sender.sendMessage(ChatColor.AQUA+"To view a player's email: ");
 					sender.sendMessage(ChatColor.YELLOW+"/email view <player name>");
+				}
+				if(sender.hasPermission("Email.send")) {
+					sender.sendMessage(ChatColor.AQUA+"To send an email to a specific player: ");
+					sender.sendMessage(ChatColor.YELLOW+"/email send <player name>");
+					sender.sendMessage(ChatColor.YELLOW+"(must be holding a written book)");
+				}
+				if(sender.hasPermission("Email.send.all")) {
+					sender.sendMessage(ChatColor.AQUA+"To send an email to a ALL players: ");
+					sender.sendMessage(ChatColor.YELLOW+"/email send");
+					sender.sendMessage(ChatColor.YELLOW+"(must be holding a written book)");
 				}
 				if(sender.hasPermission("Email.export")) {
 					sender.sendMessage(ChatColor.AQUA+"To export emails to a text file: ");
@@ -123,6 +136,38 @@ public class EmailCommands implements CommandExecutor {
 					sender.sendMessage(msgUseHelp);
 					return true;
 				}
+			} else if(opt.equalsIgnoreCase("send")) {
+				if(args.length == 2 && isPlayer && sender.hasPermission("Email.send")) {
+					Player p = (Player)sender;
+					ItemStack hand = p.getItemInHand();
+					if(hand.getType() != Material.WRITTEN_BOOK) {
+						sender.sendMessage(ChatColor.RED+"You must be holding a written book to do that!");
+						return true;
+					}
+					
+					//Get the receiver's email
+					String toEmail = plugin.emails.getPlayerEmail(args[1]);
+					if(toEmail == null) {
+						sender.sendMessage(ChatColor.RED+"That player has not set their email!");
+						return true;
+					}
+					
+					BookMeta data = (BookMeta)hand.getItemMeta();
+					
+					//The email's subject
+					String emailSubject = data.getTitle();
+					
+					//The email's body
+					String emailContent = "";
+					for(String page : data.getPages()) {
+						emailContent += " "+page;
+					}
+					//Remove the extra space
+					emailContent = emailContent.substring(1);
+					
+					//TODO: Use the plugin.mailman EmailTransfer object to send the email
+				}
+				//TODO: Add code for sending an email to all players
 			} else if(opt.equalsIgnoreCase("export")) {
 				if(args.length == 2 && sender.hasPermission("Email.export")) {
 					if(args[1].equalsIgnoreCase("1")) {
