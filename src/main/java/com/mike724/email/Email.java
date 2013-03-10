@@ -16,14 +16,18 @@
 */
 package com.mike724.email;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
 
 public class Email extends JavaPlugin {
 	
 	public EmailManager emails;
+	public EmailTransfer mailman;
 
 	@Override
 	public void onDisable() {
@@ -32,6 +36,34 @@ public class Email extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		if(!this.getDataFolder().exists()) {
+			this.getDataFolder().mkdir();
+		}
+		
+		FileConfiguration config = this.getConfig();
+		if(!new File(this.getDataFolder(), "config.yml").exists()) {
+			config.options().copyDefaults(true);
+			this.saveConfig();
+		}
+		
+		Logger log = this.getLogger();
+		
+		boolean enableEmailSending = config.getBoolean("email.enable");
+		if(enableEmailSending) {
+			String host = config.getString("email.host");
+			int port    = config.getInt("email.port");
+			String user = config.getString("email.user");
+			String pass = config.getString("email.password");
+			if(host == null || user == null || pass == null) {
+				log.severe("Issue with email configuration section, please fill out everything.");
+				this.getServer().getPluginManager().disablePlugin(this);
+				return;
+			}
+			mailman = new EmailTransfer(this, host, port, user, pass);
+		} else {
+			mailman = null;
+		}
+		
 		emails = new EmailManager(this);
 		
 		//Enable plugin metrics
