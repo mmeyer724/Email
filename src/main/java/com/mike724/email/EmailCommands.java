@@ -16,6 +16,7 @@
 */
 package com.mike724.email;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -138,6 +139,11 @@ public class EmailCommands implements CommandExecutor {
 				}
 			} else if(opt.equalsIgnoreCase("send")) {
 				if(args.length == 2 && isPlayer && sender.hasPermission("Email.send")) {
+					if(plugin.mailman == null) {
+						sender.sendMessage(ChatColor.RED+"Email sending is disabled on this server!");
+						return true;
+					}
+					
 					Player p = (Player)sender;
 					ItemStack hand = p.getItemInHand();
 					if(hand.getType() != Material.WRITTEN_BOOK) {
@@ -165,7 +171,7 @@ public class EmailCommands implements CommandExecutor {
 					//Remove the extra space
 					emailContent = emailContent.substring(1);
 					
-					//TODO: Use the plugin.mailman EmailTransfer object to send the email
+					Bukkit.getScheduler().runTaskAsynchronously(plugin, new EmailTask(plugin.mailman, toEmail, emailSubject, emailContent));
 				}
 				//TODO: Add code for sending an email to all players
 			} else if(opt.equalsIgnoreCase("export")) {
