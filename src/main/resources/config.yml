@@ -1,6 +1,4 @@
 email:
   enable: false
-  host: smtp.gmail.com
-  port: 25
   user: emailhere@gmail.com
   password: emailPasswordHere

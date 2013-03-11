@@ -16,65 +16,86 @@
 */
 package com.mike724.email;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class EmailTransfer {
 	
 	private Email plugin;
-	private String host;
-	private int port;
 	private String user;
 	private String password;
 	
-	public EmailTransfer(Email plugin, String host, int port, String user, String password) {
+	public EmailTransfer(Email plugin, String user, String password) {
 		this.plugin = plugin;
-		this.host = host;
-		this.port = port;
 		this.user = user;
 		this.password = password;
 	}
+	
+	public void send(String to, String subject, String content) {
+		//Handle GMAIL
+		if(this.user.contains("gmail")) {
+			Properties p = new Properties();
+			p.put("mail.smtp.host", "smtp.gmail.com");
+			p.put("mail.smtp.socketFactory.port", "465");
+			p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			p.put("mail.smtp.auth", "true");
+			p.put("mail.smtp.socketFactory.fallback", "false");
+			p.put("mail.smtp.password", this.password);
+			p.put("mail.smtp.port", "465");
 
-	public void sendEmail(String to, String subject, String content) {
-		String encodedUser = Base64Coder.encode(this.user.getBytes());
-		String encodedPassword = Base64Coder.encode(this.password.getBytes());
-		
-		try {
-			Socket socket = new Socket(this.host, this.port);
-			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-			BufferedReader is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			Session s = Session.getInstance(p, new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(user, password);
+				}
+			});
 
-			dos.writeBytes("HELO\r\n");
-			dos.writeBytes("AUTH LOGIN");
-			dos.writeBytes("\r\n");
-			dos.writeBytes(encodedUser);
-			dos.writeBytes("\r\n");
-			dos.writeBytes(encodedPassword);
-			dos.writeBytes("\r\n");
-			dos.writeBytes("MAIL FROM:<" + this.user + ">\r\n");
-			dos.writeBytes("\r\n");
-			dos.writeBytes("RCPT TO: <" + to + ">\r\n");
-			dos.writeBytes("DATA\r\n");
-			dos.writeBytes("Subject: " + subject + "\r\n");
-			dos.writeBytes(content);
-			dos.writeBytes("\r\n.\r\n");
-			dos.writeBytes("QUIT\r\n");
-
-			dos.flush();
-
-			String responseline;
-			while ((responseline = is.readLine()) != null) {
-				plugin.getLogger().info(responseline);
+			Message m = new MimeMessage(s);
+			try {
+				m.setFrom(new InternetAddress(this.user));
+				m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+				m.setSubject(subject);
+				m.setText(content);
+				Transport.send(m);
+				plugin.getLogger().info("Email sent!");
+			} catch (MessagingException ex) {
+				ex.printStackTrace();
 			}
+		}
+		
+		//Handle HOTMAIL
+		if (this.user.contains("hotmail")) {
+			Properties p = new Properties();
+			p.put("mail.smtp.host", "smtp.live.com");
+			p.put("mail.smtp.socketFactory.port", "25");
+			p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			p.put("mail.smtp.auth", "true");
+			p.put("mail.smtp.socketFactory.fallback", "false");
+			p.put("mail.smtp.password", this.user);
+			p.put("mail.smtp.port", "25");
 
-			is.close();
-			dos.close();
-			socket.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
+			Session s = Session.getInstance(p, new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(user, password);
+				}
+			});
+
+			Message m = new MimeMessage(s);
+			try {
+				m.setFrom(new InternetAddress(this.user));
+				m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+				m.setSubject(subject);
+				m.setText(content);
+				Transport.send(m);
+				plugin.getLogger().info("Email sent!");
+			} catch (MessagingException ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 	

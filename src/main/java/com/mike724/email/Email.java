@@ -50,16 +50,14 @@ public class Email extends JavaPlugin {
 		
 		boolean enableEmailSending = config.getBoolean("email.enable");
 		if(enableEmailSending) {
-			String host = config.getString("email.host");
-			int port    = config.getInt("email.port");
 			String user = config.getString("email.user");
 			String pass = config.getString("email.password");
-			if(host == null || user == null || pass == null) {
+			if(user == null || pass == null) {
 				log.severe("Issue with email configuration section, please fill out everything.");
 				this.getServer().getPluginManager().disablePlugin(this);
 				return;
 			}
-			mailman = new EmailTransfer(this, host, port, user, pass);
+			mailman = new EmailTransfer(this, user, pass);
 		} else {
 			mailman = null;
 		}
