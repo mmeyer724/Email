@@ -25,10 +25,10 @@ private String EMAIL_TO_PLAYER;
 private String SUBJECT;
 private String MESSAGE;
 
-    public EmailSender(String FROM_PLAYER,String EMAIL_PASSWORD, String TO_PLAYER,String SUBJECT, String MESSAGE) {
-        this.EMAIL_FROM_PLAYER = FROM_PLAYER;
+    public EmailSender(String EMAIL_FROM_PLAYER,String EMAIL_PASSWORD, String EMAIL_TO_PLAYER,String SUBJECT, String MESSAGE) {
+        this.EMAIL_FROM_PLAYER = EMAIL_FROM_PLAYER;
         this.EMAIL_PASSWORD = EMAIL_PASSWORD;
-        this.EMAIL_TO_PLAYER = TO_PLAYER;
+        this.EMAIL_TO_PLAYER = EMAIL_TO_PLAYER;
         this.SUBJECT= SUBJECT;
         this.MESSAGE = MESSAGE;
     }
