@@ -52,6 +52,8 @@
 							<artifactSet>
 								<includes>
 									<include>org.mcstats.bukkit</include>
+									<include>javax.mail</include>
+									<include>javax.activation</include>
 								</includes>
 							</artifactSet>
 						</configuration>
