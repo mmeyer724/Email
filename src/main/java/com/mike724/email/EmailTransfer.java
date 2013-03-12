@@ -28,18 +28,20 @@ import javax.mail.internet.MimeMessage;
 public class EmailTransfer {
 	
 	private Email plugin;
+	private EmailProvider type;
 	private String user;
 	private String password;
 	
-	public EmailTransfer(Email plugin, String user, String password) {
+	public EmailTransfer(Email plugin, EmailProvider type, String user, String password) {
 		this.plugin = plugin;
+		this.type = type;
 		this.user = user;
 		this.password = password;
 	}
 	
 	public void send(String to, String subject, String content) {
 		//Handle GMAIL
-		if(this.user.contains("gmail")) {
+		if(this.type == EmailProvider.GMAIL) {
 			Properties p = new Properties();
 			p.put("mail.smtp.host", "smtp.gmail.com");
 			p.put("mail.smtp.socketFactory.port", "465");
@@ -69,7 +71,7 @@ public class EmailTransfer {
 		}
 		
 		//Handle HOTMAIL
-		if (this.user.contains("hotmail")) {
+		if(this.type == EmailProvider.HOTMAIL) {
 			Properties p = new Properties();
 			p.put("mail.smtp.host", "smtp.live.com");
 			p.put("mail.smtp.socketFactory.port", "25");
@@ -98,7 +100,4 @@ public class EmailTransfer {
 			}
 		}
 	}
-
-        
-        
 }

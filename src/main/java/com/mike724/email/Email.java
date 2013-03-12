@@ -50,6 +50,13 @@ public class Email extends JavaPlugin {
 		
 		boolean enableEmailSending = config.getBoolean("email.enable");
 		if(enableEmailSending) {
+			String typeString = config.getString("email.type");
+			EmailProvider type = EmailProvider.valueOf(typeString.toUpperCase());
+			if(type == null) {
+				log.severe("Unknown email provider! (We are working on adding more)");
+				this.getServer().getPluginManager().disablePlugin(this);
+				return;
+			}
 			String user = config.getString("email.user");
 			String pass = config.getString("email.password");
 			if(user == null || pass == null) {
@@ -57,7 +64,7 @@ public class Email extends JavaPlugin {
 				this.getServer().getPluginManager().disablePlugin(this);
 				return;
 			}
-			mailman = new EmailTransfer(this, user, pass);
+			mailman = new EmailTransfer(this, type, user, pass);
 		} else {
 			mailman = null;
 		}
