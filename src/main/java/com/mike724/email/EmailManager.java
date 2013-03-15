@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class EmailManager {
@@ -57,6 +58,17 @@ public class EmailManager {
 	
 	public String getPlayerEmail(String name) {
 		return config.getString(root+name);
+	}
+	
+	public String[] getAllPlayerEmails() {
+		ConfigurationSection sect = config.getConfigurationSection(root);
+		Set<String> keys = sect.getKeys(false);
+		String[] emails = new String[keys.size()];
+		int id = 0;
+		for(String key : keys) {
+			emails[id++] = sect.getString(key);
+		}
+		return emails;
 	}
 	
 	public void removePlayerEmail(String name) {

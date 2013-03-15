@@ -78,7 +78,8 @@ public class EmailTransfer {
 			p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			p.put("mail.smtp.auth", "true");
 			p.put("mail.smtp.socketFactory.fallback", "false");
-			p.put("mail.smtp.password", this.user);
+			// This was originally this.user, but this.password seems to make more sense.
+			p.put("mail.smtp.password", this.password);
 			p.put("mail.smtp.port", "25");
 
 			Session s = Session.getInstance(p, new javax.mail.Authenticator() {

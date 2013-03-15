@@ -138,12 +138,21 @@ public class EmailCommands implements CommandExecutor {
 					return true;
 				}
 			} else if(opt.equalsIgnoreCase("send")) {
-				if(args.length == 2 && isPlayer && sender.hasPermission("Email.send")) {
-					if(plugin.mailman == null) {
-						sender.sendMessage(ChatColor.RED+"Email sending is disabled on this server!");
-						return true;
-					}
-					
+				if(plugin.mailman == null) {
+					sender.sendMessage(ChatColor.RED+"Email sending is disabled on this server!");
+					return true;
+				}
+				if(!isPlayer) {
+					sender.sendMessage(ChatColor.RED+"Sorry, only players can do that.");
+					return true;
+				}
+				if(args.length != 1 || args.length != 2) {
+					sender.sendMessage(msgUseHelp);
+					return true;
+				}
+				boolean allPlayers = args.length == 1;
+				if((allPlayers && sender.hasPermission("Email.send.all")) || (!allPlayers && sender.hasPermission("Email.send"))) {
+					//Get itemstack in hand, quit if it's not a written book
 					Player p = (Player)sender;
 					ItemStack hand = p.getItemInHand();
 					if(hand.getType() != Material.WRITTEN_BOOK) {
@@ -151,13 +160,26 @@ public class EmailCommands implements CommandExecutor {
 						return true;
 					}
 					
-					//Get the receiver's email
-					String toEmail = plugin.emails.getPlayerEmail(args[1]);
-					if(toEmail == null) {
+					//Set appropriate recipient string
+					//If all players, then toEmail will be a CSV string (ex. email1@example.com,email2@example.com)
+					String toEmail = "";
+					if(allPlayers) {
+						String[] emailArray = plugin.emails.getAllPlayerEmails();
+						for(String email : emailArray) {
+							toEmail += ","+email;
+						}
+						toEmail = toEmail.substring(1);
+					} else {
+						toEmail = plugin.emails.getPlayerEmail(args[1]);
+					}
+					
+					//Can't have that!
+					if(toEmail.isEmpty()) {
 						sender.sendMessage(ChatColor.RED+"That player has not set their email!");
 						return true;
 					}
 					
+					//Get the book's metadata
 					BookMeta data = (BookMeta)hand.getItemMeta();
 					
 					//The email's subject
@@ -168,12 +190,16 @@ public class EmailCommands implements CommandExecutor {
 					for(String page : data.getPages()) {
 						emailContent += " "+page;
 					}
+					
 					//Remove the extra space
 					emailContent = emailContent.substring(1);
 					
+					//Send the email! :)
 					Bukkit.getScheduler().runTaskAsynchronously(plugin, new EmailTask(plugin.mailman, toEmail, emailSubject, emailContent));
+				} else {
+					sender.sendMessage(msgUseHelp);
+					return true;
 				}
-				//TODO: Add code for sending an email to all players
 			} else if(opt.equalsIgnoreCase("export")) {
 				if(args.length == 2 && sender.hasPermission("Email.export")) {
 					if(args[1].equalsIgnoreCase("1")) {
