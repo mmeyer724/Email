@@ -20,7 +20,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -41,10 +40,8 @@ public class Email extends JavaPlugin {
         }
 
         FileConfiguration config = this.getConfig();
-        if (!new File(this.getDataFolder(), "config.yml").exists()) {
-            config.options().copyDefaults(true);
-            this.saveConfig();
-        }
+        config.options().copyDefaults(true);
+        this.saveConfig();
 
         Logger log = this.getLogger();
 
