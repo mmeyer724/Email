@@ -21,20 +21,20 @@
 */
 package com.mike724.email;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
-
 public class ConfigAccessor {
 
     private final String fileName;
     private final JavaPlugin plugin;
-    
+
     private File configFile;
     private FileConfiguration fileConfiguration;
 
@@ -51,7 +51,7 @@ public class ConfigAccessor {
         this.configFile = new File(plugin.getDataFolder(), fileName);
     }
 
-    public void reloadConfig() {        
+    public void reloadConfig() {
         fileConfiguration = YamlConfiguration.loadConfiguration(configFile);
 
         // Look for defaults in the jar
@@ -80,9 +80,9 @@ public class ConfigAccessor {
             }
         }
     }
-    
+    @SuppressWarnings("unused")
     public void saveDefaultConfig() {
-        if (!configFile.exists()) {            
+        if (!configFile.exists()) {
             this.plugin.saveResource(fileName, false);
         }
     }
