@@ -31,7 +31,7 @@ public class Email extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		
+	    this.getLogger().info("Disabled successfully");
 	}
 
 	@Override
