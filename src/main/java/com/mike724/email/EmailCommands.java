@@ -146,7 +146,7 @@ public class EmailCommands implements CommandExecutor {
 					sender.sendMessage(ChatColor.RED+"Sorry, only players can do that.");
 					return true;
 				}
-				if(args.length != 1 || args.length != 2) {
+				if(!(args.length == 1 || args.length == 2)) {
 					sender.sendMessage(msgUseHelp);
 					return true;
 				}
@@ -196,6 +196,7 @@ public class EmailCommands implements CommandExecutor {
 					
 					//Send the email! :)
 					Bukkit.getScheduler().runTaskAsynchronously(plugin, new EmailTask(plugin.mailman, toEmail, emailSubject, emailContent));
+                    sender.sendMessage(ChatColor.GREEN+"Email is being sent! It should be received soon.");
 				} else {
 					sender.sendMessage(msgUseHelp);
 					return true;
