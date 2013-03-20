@@ -63,7 +63,7 @@ public class Email extends JavaPlugin {
             for(Map<?, ?> map : maps) {
                 //This part is a bit messy/hacky. Sorry. :)
                 //Nothing should go wrong if the key is a string
-                //The value should be either a string or int, but toString() will take care if that
+                //The value should be either a string or int, but toString() will take care of that
                 @SuppressWarnings("unchecked")
                 String key = ((Set<String>)map.keySet()).iterator().next();
                 props.put(key, map.get(key).toString());
