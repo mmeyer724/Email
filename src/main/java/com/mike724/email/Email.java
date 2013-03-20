@@ -21,6 +21,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class Email extends JavaPlugin {
@@ -40,6 +44,7 @@ public class Email extends JavaPlugin {
         }
 
         FileConfiguration config = this.getConfig();
+        config.options().copyHeader(true);
         config.options().copyDefaults(true);
         this.saveConfig();
 
@@ -48,12 +53,22 @@ public class Email extends JavaPlugin {
         boolean enableEmailSending = config.getBoolean("email.enable");
         if (enableEmailSending) {
             String typeString = config.getString("email.type");
-            EmailProvider type = EmailProvider.valueOf(typeString.toUpperCase());
-            if (type == null) {
-                log.severe("Unknown email provider! (We are working on adding more)");
+            List<Map<?, ?>> maps = config.getMapList("providers."+typeString);
+            if(maps == null || maps.isEmpty()) {
+                log.severe("Unknown email provider! Disabling");
                 this.getServer().getPluginManager().disablePlugin(this);
                 return;
             }
+            HashMap<String, String> props = new HashMap<String, String>();
+            for(Map<?, ?> map : maps) {
+                //This part is a bit messy/hacky. Sorry. :)
+                //Nothing should go wrong if the key is a string
+                //The value should be either a string or int, but toString() will take care if that
+                @SuppressWarnings("unchecked")
+                String key = ((Set<String>)map.keySet()).iterator().next();
+                props.put(key, map.get(key).toString());
+            }
+            EmailProvider type = new EmailProvider(typeString, props);
             String user = config.getString("email.user");
             String pass = config.getString("email.password");
             if (user == null || pass == null) {

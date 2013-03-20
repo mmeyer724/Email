@@ -1,5 +1,32 @@
+# enable - whether or not to enable email sending
+# type - the provider type defined in the providers configuration section
+# user - your email
+# password - obviously, this is your email's password.
+# PROVIDERS
+# GMAIL - Settings for sending email with Gmail
+# HOTMAIL - Settings for sending email with Hotmail
+# Add your own providers too!
+# If it's a popular one, submit it to me so I can include it for others!
+# You can view available settings here:
+# http://javamail.kenai.com/nonav/javadocs/com/sun/mail/smtp/package-summary.html
+# $PASS will be replaced with your password (probably not needed, included just in case)
 email:
   enable: false
   type: GMAIL
   user: emailhere@gmail.com
   password: emailPasswordHere
+providers:
+  GMAIL:
+    - mail.smtp.host: smtp.gmail.com
+    - mail.smtp.socketFactory.port: 465
+    - mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+    - mail.smtp.auth: true
+    - mail.smtp.socketFactory.fallback: false
+    - mail.smtp.port: 465
+  HOTMAIL:
+    - mail.smtp.host: smtp.live.com
+    - mail.smtp.socketFactory.port: 25
+    - mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+    - mail.smtp.auth: true
+    - mail.smtp.socketFactory.fallback: false
+    - mail.smtp.port: 25

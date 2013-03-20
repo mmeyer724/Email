@@ -16,7 +16,31 @@
 */
 package com.mike724.email;
 
-public enum EmailProvider {
-    GMAIL,
-    HOTMAIL;
+import java.util.HashMap;
+
+@SuppressWarnings("unused")
+public class EmailProvider {
+    private String key;
+    private HashMap<String, String> props;
+
+    public EmailProvider(String key, HashMap<String, String> props) {
+        this.key = key;
+        this.props = props;
+    }
+
+    public HashMap<String, String> getProps() {
+        return props;
+    }
+
+    public void setProps(HashMap<String, String> props) {
+        this.props = props;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }

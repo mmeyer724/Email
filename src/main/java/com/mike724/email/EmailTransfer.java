@@ -19,6 +19,7 @@ package com.mike724.email;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Map;
 import java.util.Properties;
 
 public class EmailTransfer {
@@ -36,65 +37,25 @@ public class EmailTransfer {
     }
 
     public void send(String to, String subject, String content) {
-        //Handle GMAIL
-        if (this.type == EmailProvider.GMAIL) {
-            Properties p = new Properties();
-            p.put("mail.smtp.host", "smtp.gmail.com");
-            p.put("mail.smtp.socketFactory.port", "465");
-            p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            p.put("mail.smtp.auth", "true");
-            p.put("mail.smtp.socketFactory.fallback", "false");
-            p.put("mail.smtp.password", this.password);
-            p.put("mail.smtp.port", "465");
-
-            Session s = Session.getInstance(p, new javax.mail.Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, password);
-                }
-            });
-
-            Message m = new MimeMessage(s);
-            try {
-                m.setFrom(new InternetAddress(this.user));
-                m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-                m.setSubject(subject);
-                m.setText(content);
-                Transport.send(m);
-                plugin.getLogger().info("Email sent!");
-            } catch (MessagingException ex) {
-                ex.printStackTrace();
-            }
+        Properties p = new Properties();
+        for(Map.Entry<String, String> entry : type.getProps().entrySet()) {
+            p.put(entry.getKey(), entry.getValue().replaceAll("$PASS", this.password));
         }
-
-        //Handle HOTMAIL
-        if (this.type == EmailProvider.HOTMAIL) {
-            Properties p = new Properties();
-            p.put("mail.smtp.host", "smtp.live.com");
-            p.put("mail.smtp.socketFactory.port", "25");
-            p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            p.put("mail.smtp.auth", "true");
-            p.put("mail.smtp.socketFactory.fallback", "false");
-            // This was originally this.user, but this.password seems to make more sense.
-            p.put("mail.smtp.password", this.password);
-            p.put("mail.smtp.port", "25");
-
-            Session s = Session.getInstance(p, new javax.mail.Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, password);
-                }
-            });
-
-            Message m = new MimeMessage(s);
-            try {
-                m.setFrom(new InternetAddress(this.user));
-                m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-                m.setSubject(subject);
-                m.setText(content);
-                Transport.send(m);
-                plugin.getLogger().info("Email sent!");
-            } catch (MessagingException ex) {
-                ex.printStackTrace();
+        Session s = Session.getInstance(p, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, password);
             }
+        });
+        Message m = new MimeMessage(s);
+        try {
+            m.setFrom(new InternetAddress(this.user));
+            m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            m.setSubject(subject);
+            m.setText(content);
+            Transport.send(m);
+            plugin.getLogger().info("Email sent!");
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
         }
     }
 }

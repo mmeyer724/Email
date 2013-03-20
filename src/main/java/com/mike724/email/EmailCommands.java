@@ -197,6 +197,7 @@ public class EmailCommands implements CommandExecutor {
                     //Send the email! :)
                     Bukkit.getScheduler().runTaskAsynchronously(plugin, new EmailTask(plugin.mailman, toEmail, emailSubject, emailContent));
                     sender.sendMessage(ChatColor.GREEN + "Email is being sent! It should be received soon.");
+                    return true;
                 } else {
                     sender.sendMessage(msgUseHelp);
                     return true;
