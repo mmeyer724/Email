@@ -4,5 +4,6 @@ author: Mike724
 version: ${version}
 commands:
     email:
+        aliases: [e, em]
         description: Manage your email entry
         usage: /<command> help
