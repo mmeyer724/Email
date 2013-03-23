@@ -1,7 +1,19 @@
+# -------------------------------------------------------------------------------------------------
+# EMAIL
 # enable - whether or not to enable email sending
 # type - the provider type defined in the providers configuration section
 # user - your email
 # password - obviously, this is your email's password.
+# -- Email data alterations (alter)
+# subject - The subject of the email
+# content - The content of the email (body)
+# in_between_pages - What to separate book pages with (default is a space)
+# -- Alteration variables:
+# $BOOK_TITLE - The title of the book (by default used as the email's subject)
+# $BOOK_CONTENT -The content of all the pages in the book (by default used as the email's content)
+# $PLAYER_NAME - The name of the player who is sending the email
+# $NL - Used to make a new line
+# -------------------------------------------------------------------------------------------------
 # PROVIDERS
 # GMAIL - Settings for sending email with Gmail
 # HOTMAIL - Settings for sending email with Hotmail
@@ -15,6 +27,10 @@ email:
   type: GMAIL
   user: emailhere@gmail.com
   password: emailPasswordHere
+  alter:
+    subject: $BOOK_TITLE
+    content: $BOOK_CONTENT$NL$NLThis email was sent to you by $PLAYER_NAME.
+    in_between_pages: ' '
 providers:
   GMAIL:
     - mail.smtp.host: smtp.gmail.com
