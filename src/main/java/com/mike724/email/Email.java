@@ -31,6 +31,7 @@ public class Email extends JavaPlugin {
 
     public EmailManager emails;
     public EmailTransfer mailman;
+    public EmailAlter alter;
 
     @Override
     public void onDisable() {
@@ -82,6 +83,17 @@ public class Email extends JavaPlugin {
         }
 
         emails = new EmailManager(this);
+
+        String between = config.getString("email.alter.in_between_pages");
+        String sub = config.getString("email.alter.subject");
+        String con = config.getString("email.alter.content");
+        if(between == null || sub == null || con == null) {
+            log.severe("Missing important config values in alter section.");
+            this.getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        this.alter = new EmailAlter(between, sub, con);
+
 
         //Enable plugin metrics
         try {

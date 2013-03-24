@@ -183,19 +183,22 @@ public class EmailCommands implements CommandExecutor {
                     BookMeta data = (BookMeta) hand.getItemMeta();
 
                     //The email's subject
-                    String emailSubject = data.getTitle();
+                    String bookTitle = data.getTitle();
 
                     //The email's body
-                    String emailContent = "";
+                    String bookContent = "";
                     for (String page : data.getPages()) {
-                        emailContent += " " + page;
+                        bookContent += plugin.alter.IN_BETWEEN_PAGES + page;
                     }
 
-                    //Remove the extra space
-                    emailContent = emailContent.substring(1);
+                    //Remove the extra
+                    bookContent = bookContent.substring(plugin.alter.IN_BETWEEN_PAGES.length());
+
+                    String subject = plugin.alter.replaceVariables(plugin.alter.SUBJECT, p.getName(), bookTitle, bookContent);
+                    String content = plugin.alter.replaceVariables(plugin.alter.CONTENT, p.getName(), bookTitle, bookContent);
 
                     //Send the email! :)
-                    Bukkit.getScheduler().runTaskAsynchronously(plugin, new EmailTask(plugin.mailman, toEmail, emailSubject, emailContent));
+                    Bukkit.getScheduler().runTaskAsynchronously(plugin, new EmailTask(plugin.mailman, toEmail, subject, content));
                     sender.sendMessage(ChatColor.GREEN + "Email is being sent! It should be received soon.");
                     return true;
                 } else {
