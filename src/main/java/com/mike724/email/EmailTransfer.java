@@ -39,7 +39,7 @@ public class EmailTransfer {
     public void send(String to, String subject, String content) {
         Properties p = new Properties();
         for(Map.Entry<String, String> entry : type.getProps().entrySet()) {
-            p.put(entry.getKey(), entry.getValue().replaceAll("$PASS", this.password));
+            p.put(entry.getKey(), entry.getValue().replace("$PASS", this.password));
         }
         Session s = Session.getInstance(p, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
