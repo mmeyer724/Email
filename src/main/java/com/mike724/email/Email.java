@@ -62,6 +62,12 @@ public class Email extends JavaPlugin {
     }
 
     public void loadConfig() {
+        //Set it all to null
+        this.emails = null;
+        this.mailman = null;
+        this.alter = null;
+
+        this.reloadConfig();
         FileConfiguration config = this.getConfig();
         Logger log = this.getLogger();
         boolean enableEmailSending = config.getBoolean("email.enable");
