@@ -222,6 +222,15 @@ public class EmailCommands implements CommandExecutor {
                     sender.sendMessage(msgUseHelp);
                     return true;
                 }
+            } else if(opt.equalsIgnoreCase("reload")) {
+                if(sender.hasPermission("Email.reload")) {
+                    plugin.loadConfig();
+                    sender.sendMessage(ChatColor.GREEN+"Reloaded configuration!");
+                    return true;
+                } else {
+                    sender.sendMessage(msgUseHelp);
+                    return false;
+                }
             } else if (opt.equalsIgnoreCase("info")) {
                 PluginDescriptionFile pdf = plugin.getDescription();
                 String name = ChatColor.YELLOW + pdf.getName() + ChatColor.AQUA;

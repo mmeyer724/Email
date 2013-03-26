@@ -44,6 +44,20 @@ public class Email extends JavaPlugin {
             this.getDataFolder().mkdir();
         }
 
+        loadConfig();
+        Logger log = this.getLogger();
+        //Enable plugin metrics
+        try {
+            MetricsLite metrics = new MetricsLite(this);
+            metrics.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.getCommand("email").setExecutor(new EmailCommands(this));
+        log.info("Enabled successfully");
+    }
+
+    public void loadConfig() {
         FileConfiguration config = this.getConfig();
         config.options().copyHeader(true);
         config.options().copyDefaults(true);
@@ -93,16 +107,6 @@ public class Email extends JavaPlugin {
             return;
         }
         this.alter = new EmailAlter(between, sub, con);
-
-
-        //Enable plugin metrics
-        try {
-            MetricsLite metrics = new MetricsLite(this);
-            metrics.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.getCommand("email").setExecutor(new EmailCommands(this));
-        this.getLogger().info("Enabled successfully");
+        log.info("Configuration loaded");
     }
 }
