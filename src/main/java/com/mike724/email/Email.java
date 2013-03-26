@@ -43,6 +43,10 @@ public class Email extends JavaPlugin {
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
         }
+        FileConfiguration config = this.getConfig();
+        config.options().copyHeader(true);
+        config.options().copyDefaults(true);
+        this.saveConfig();
 
         loadConfig();
         Logger log = this.getLogger();
@@ -59,12 +63,7 @@ public class Email extends JavaPlugin {
 
     public void loadConfig() {
         FileConfiguration config = this.getConfig();
-        config.options().copyHeader(true);
-        config.options().copyDefaults(true);
-        this.saveConfig();
-
         Logger log = this.getLogger();
-
         boolean enableEmailSending = config.getBoolean("email.enable");
         if (enableEmailSending) {
             String typeString = config.getString("email.type");
@@ -95,9 +94,7 @@ public class Email extends JavaPlugin {
         } else {
             mailman = null;
         }
-
         emails = new EmailManager(this);
-
         String between = config.getString("email.alter.in_between_pages");
         String sub = config.getString("email.alter.subject");
         String con = config.getString("email.alter.content");
