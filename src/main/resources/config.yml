@@ -4,6 +4,7 @@
 # type - the provider type defined in the providers configuration section
 # user - your email
 # password - obviously, this is your email's password.
+# languaje - a Languaje (  Spanish |:|  English  |:| French)
 # -- Email data alterations (alter)
 # subject - The subject of the email
 # content - The content of the email (body)
@@ -27,6 +28,7 @@ email:
   type: GMAIL
   user: emailhere@gmail.com
   password: emailPasswordHere
+  languaje: English
   alter:
     sender_email_given:
       yes: You can reply to $PLAYER_NAME at $PLAYER_EMAIL.

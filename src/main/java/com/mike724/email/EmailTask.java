@@ -16,14 +16,16 @@
 */
 package com.mike724.email;
 
+import java.util.ArrayList;
+
 public class EmailTask implements Runnable {
 
     private EmailTransfer mailman;
-    private String toEmail;
+    private ArrayList<String> toEmail;
     private String emailSubject;
     private String emailContent;
 
-    public EmailTask(EmailTransfer mailman, String toEmail, String emailSubject, String emailContent) {
+    public EmailTask(EmailTransfer mailman, ArrayList<String> toEmail, String emailSubject, String emailContent) {
         this.mailman = mailman;
         this.toEmail = toEmail;
         this.emailSubject = emailSubject;

@@ -1,0 +1,45 @@
+commands:
+  help1: Utilisez '/ help email' pour une aide
+  help2: Utilisation de la commande non valide ou non l'autorisation, utilisez '/ aide e-mail »pour l'aide.
+  startEmailHelp: ~~~ Email help Démarrer ~~~
+  viewPluginInformation: Pour afficher des informations plugin: 
+  emailSet1: Pour configurer votre messagerie (joueurs seulement):  
+  emailSet2: /email set votre_courriel@website.com (@hotmail | @gmail | @yahoo | @etc)
+  emailSetOther1: Pour définir l'adresse email d'un joueur:
+  emailSetOther2: /email set <nom personnage> (son / sa)_Email@website.com (@hotmail | @gmail | @yahoo | @etc)
+  emailRemove1: Pour supprimer un e-mail (joueurs seulement):  
+  emailRemove2: /email remove
+  emailRemoveOthers1: Pour supprimer un e-mail joueur: 
+  emailRemoveOthers2: /email remove <nom personnage>
+  emailView1: Pour afficher votre e-mail (joueurs seulement):
+  emailView2: /email view
+  emailViewOther1: Pour voir e-mail d'un joueur: 
+  emailViewOther2: /email view <nom personnage>
+  emailSend1: Pour envoyer un e-mail à un joueur en particulier:
+  emailSend2: /email send <nom personnage>
+  emailSend3: (doit être titulaire d'un livre écrit)
+  emailSendAll1: Pour envoyer un e-mail à un tous les joueurs:
+  emailSendAll2: /email send
+  emailSendAll3: (doit être titulaire d'un livre écrit)
+  emailExport1: Pour exporter des e-mails dans un fichier texte:
+  emailEsport2: /email export <type, 1 ou 2>
+  emailEsport3: Type 1 va afficher les noms et les courriels de type 2 sera uniquement exporter des emails.
+  endHelp: ~~~ Fin Email help ~~~
+answers:
+  invalidEmail: E-mail incorrect
+  emailSet: Set E-mail
+  emailRemove: email supprimé
+  emailView: Le courriel est la suivante:
+  noEmailSet: Vous n'avez pas un ensemble email
+  noEmailSetOthers: Ce joueur n'a pas un ensemble email
+  emailSendingDisable: L'envoi d'emails est désactivé sur ce serveur!
+  sorryOnlyPlayers: Désolé, seuls les joueurs peuvent le faire.
+  book: Vous devez être titulaire d'un livre écrit à le faire!
+  sent: Mail est envoyé! Il doit être reçue prochainement.
+  emailExport1: E-mails et les noms exportés
+  emailExport2: e-mails exportés
+  emailExportException: Mauvais type, doit être 1 ou 2.
+  reload: Reloaded configuration!
+emailTransfer:
+  emailSent1: E-mail envoyé à:  
+  emailSent2: Erreur envoi mail à: 

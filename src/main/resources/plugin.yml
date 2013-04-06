@@ -1,6 +1,6 @@
 name: Email
 main: com.mike724.email.Email
-author: Mike724
+author: Mike724 & MainTurboCraft
 version: ${version}
 commands:
     email:
