@@ -24,6 +24,9 @@
 				<includes>
 					<include>plugin.yml</include>
 					<include>config.yml</include>
+                                        <include>English.yml</include>
+                                        <include>Spanish.yml</include>
+                                        <include>French.yml</include>
 				</includes>
 			</resource>
 		</resources>
