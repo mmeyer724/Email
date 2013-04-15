@@ -45,6 +45,7 @@ public class Email extends JavaPlugin {
     public EmailManager emails;
     public EmailTransfer mailman;
     public EmailAlter alter;
+    public YMLCreator ymlc;
 
     @Override
     public void onDisable() {
@@ -55,6 +56,20 @@ public class Email extends JavaPlugin {
     public void onEnable() {
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
+        //=== Making Languajes Folder ===
+         File nuevo=new File(this.getDataFolder(), "/Languajes/");
+            if(!nuevo.exists()){
+    		nuevo.mkdir();
+            }
+        //==== End ===
+            
+        // Create Languajes Files
+           ymlc=new YMLCreator(this);
+           ymlc.createLanguajes("English");
+           ymlc.createLanguajes("Spanish");
+           ymlc.createLanguajes("French");
+        //End    
+            
         }
         FileConfiguration config = this.getConfig();
         config.options().copyHeader(true);

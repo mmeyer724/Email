@@ -66,7 +66,8 @@ public class EmailManager {
         String[] emails = new String[keys.size()];
         int id = 0;
         for (String key : keys) {
-            emails[id++] = sect.getString(key);
+            emails[id] = sect.getString(key);
+            id++;
         }
         return emails;
     }

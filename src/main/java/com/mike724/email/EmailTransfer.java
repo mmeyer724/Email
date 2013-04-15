@@ -40,7 +40,7 @@ public class EmailTransfer {
         this.LA=new LanguajeManager(plugin);
     }
 
-    public void send(ArrayList<String> to, String subject, String content) {
+    public void send(String[] to, String subject, String content) {
         Properties p = new Properties();
         for(Map.Entry<String, String> entry : type.getProps().entrySet()) {
             p.put(entry.getKey(), entry.getValue().replace("$PASS", this.password));
@@ -52,17 +52,17 @@ public class EmailTransfer {
         });
         Message m = new MimeMessage(s);
         
-        for(int counter=0;to.size()>=counter;counter++){
+        for(int counter=0;to.length>counter;counter++){
         try {
             m.setFrom(new InternetAddress(this.user));
-            m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to.get(counter)));
+            m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to[counter]));
             m.setSubject(subject);
             m.setText(content);
             Transport.send(m);
-            plugin.getLogger().info(ChatColor.GOLD + LA.search("emailTransfer.emailSent1") +ChatColor.BLUE + to.get(counter));}
+            plugin.getLogger().info(LA.search("emailTransfer.emailSent1") + " " + to[counter]);}
          catch (MessagingException ex) {
             ex.printStackTrace();
-            plugin.getLogger().info(ChatColor.RED + LA.search("emailTransfer.emailSent2") +ChatColor.GREEN + to.get(counter));
+            plugin.getLogger().info(LA.search("emailTransfer.emailSent2") + " " + to[counter]);
         }
         }
     }
