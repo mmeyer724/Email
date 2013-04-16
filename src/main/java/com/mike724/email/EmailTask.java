@@ -16,8 +16,6 @@
 */
 package com.mike724.email;
 
-import java.util.ArrayList;
-
 public class EmailTask implements Runnable {
 
     private EmailTransfer mailman;

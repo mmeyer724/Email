@@ -16,11 +16,11 @@
 */
 package com.mike724.email;
 
-import java.io.File;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 public class Email extends JavaPlugin {
-    
+
     //Terminal Colors (CMD Panel)=============================
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -41,7 +41,7 @@ public class Email extends JavaPlugin {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     //Terminal Colors (CMD Panel)=============================
-    
+
     public EmailManager emails;
     public EmailTransfer mailman;
     public EmailAlter alter;
@@ -56,20 +56,20 @@ public class Email extends JavaPlugin {
     public void onEnable() {
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
-        //=== Making Languajes Folder ===
-         File nuevo=new File(this.getDataFolder(), "/Languajes/");
-            if(!nuevo.exists()){
-    		nuevo.mkdir();
+            //=== Making Languajes Folder ===
+            File nuevo = new File(this.getDataFolder(), "/Languajes/");
+            if (!nuevo.exists()) {
+                nuevo.mkdir();
             }
-        //==== End ===
-            
-        // Create Languajes Files
-           ymlc=new YMLCreator(this);
-           ymlc.createLanguajes("English");
-           ymlc.createLanguajes("Spanish");
-           ymlc.createLanguajes("French");
-        //End    
-            
+            //==== End ===
+
+            // Create Languajes Files
+            ymlc = new YMLCreator(this);
+            ymlc.createLanguajes("English");
+            ymlc.createLanguajes("Spanish");
+            ymlc.createLanguajes("French");
+            //End
+
         }
         FileConfiguration config = this.getConfig();
         config.options().copyHeader(true);
@@ -101,19 +101,19 @@ public class Email extends JavaPlugin {
         boolean enableEmailSending = config.getBoolean("email.enable");
         if (enableEmailSending) {
             String typeString = config.getString("email.type");
-            List<Map<?, ?>> maps = config.getMapList("providers."+typeString);
-            if(maps == null || maps.isEmpty()) {
+            List<Map<?, ?>> maps = config.getMapList("providers." + typeString);
+            if (maps == null || maps.isEmpty()) {
                 log.severe("Unknown email provider! Disabling");
                 this.getServer().getPluginManager().disablePlugin(this);
                 return;
             }
             HashMap<String, String> props = new HashMap<String, String>();
-            for(Map<?, ?> map : maps) {
+            for (Map<?, ?> map : maps) {
                 //This part is a bit messy/hacky. Sorry. :)
                 //Nothing should go wrong if the key is a string
                 //The value should be either a string or int, but toString() will take care of that
                 @SuppressWarnings("unchecked")
-                String key = ((Set<String>)map.keySet()).iterator().next();
+                String key = ((Set<String>) map.keySet()).iterator().next();
                 props.put(key, map.get(key).toString());
             }
             EmailProvider type = new EmailProvider(typeString, props);
@@ -132,7 +132,7 @@ public class Email extends JavaPlugin {
         String between = config.getString("email.alter.in_between_pages");
         String sub = config.getString("email.alter.subject");
         String con = config.getString("email.alter.content");
-        if(between == null || sub == null || con == null) {
+        if (between == null || sub == null || con == null) {
             log.severe("Missing important config values in alter section.");
             this.getServer().getPluginManager().disablePlugin(this);
             return;

@@ -16,13 +16,11 @@
 */
 package com.mike724.email;
 
-import java.util.ArrayList;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Map;
 import java.util.Properties;
-import org.bukkit.ChatColor;
 
 public class EmailTransfer {
 
@@ -37,12 +35,12 @@ public class EmailTransfer {
         this.type = type;
         this.user = user;
         this.password = password;
-        this.LA=new LanguajeManager(plugin);
+        this.LA = new LanguajeManager(plugin);
     }
 
     public void send(String[] to, String subject, String content) {
         Properties p = new Properties();
-        for(Map.Entry<String, String> entry : type.getProps().entrySet()) {
+        for (Map.Entry<String, String> entry : type.getProps().entrySet()) {
             p.put(entry.getKey(), entry.getValue().replace("$PASS", this.password));
         }
         Session s = Session.getInstance(p, new javax.mail.Authenticator() {
@@ -51,19 +49,19 @@ public class EmailTransfer {
             }
         });
         Message m = new MimeMessage(s);
-        
-        for(int counter=0;to.length>counter;counter++){
-        try {
-            m.setFrom(new InternetAddress(this.user));
-            m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to[counter]));
-            m.setSubject(subject);
-            m.setText(content);
-            Transport.send(m);
-            plugin.getLogger().info(LA.search("emailTransfer.emailSent1") + " " + to[counter]);}
-         catch (MessagingException ex) {
-            ex.printStackTrace();
-            plugin.getLogger().info(LA.search("emailTransfer.emailSent2") + " " + to[counter]);
-        }
+
+        for (int counter = 0; to.length > counter; counter++) {
+            try {
+                m.setFrom(new InternetAddress(this.user));
+                m.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to[counter]));
+                m.setSubject(subject);
+                m.setText(content);
+                Transport.send(m);
+                plugin.getLogger().info(LA.search("emailTransfer.emailSent1") + " " + to[counter]);
+            } catch (MessagingException ex) {
+                ex.printStackTrace();
+                plugin.getLogger().info(LA.search("emailTransfer.emailSent2") + " " + to[counter]);
+            }
         }
     }
 }

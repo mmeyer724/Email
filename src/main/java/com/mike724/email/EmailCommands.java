@@ -16,7 +16,6 @@
 */
 package com.mike724.email;
 
-import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -36,7 +35,7 @@ public class EmailCommands implements CommandExecutor {
 
     public EmailCommands(Email plugin) {
         this.plugin = plugin;
-        this.LG=new LanguajeManager(plugin);
+        this.LG = new LanguajeManager(plugin);
     }
 
     @Override
@@ -170,20 +169,20 @@ public class EmailCommands implements CommandExecutor {
                     if (allPlayers) {
                         String[] emailArray = plugin.emails.getAllPlayerEmails();
                         //adding every Emails to an String[] , this can be use to a list on the server. and for sending each message.
-                        this.everyEmails=emailArray;
+                        this.everyEmails = emailArray;
                         sender.sendMessage(ChatColor.GOLD + String.valueOf(everyEmails.length) + " Emails");
                         for (String email : emailArray) {
                             toEmail += "," + email;
-                            
+
                         }
-                        
+
                         toEmail = toEmail.substring(1);
                     } else {
                         this.everyEmails[0] = plugin.emails.getPlayerEmail(args[1]);
                     }
 
                     //Can't have that!
-                    if (everyEmails.length==0) {
+                    if (everyEmails.length == 0) {
                         sender.sendMessage(ChatColor.RED + LG.search("answers.noEmailSetOthers") + " ");
                         return true;
                     }
@@ -231,10 +230,10 @@ public class EmailCommands implements CommandExecutor {
                     sender.sendMessage(msgUseHelp);
                     return true;
                 }
-            } else if(opt.equalsIgnoreCase("reload")) {
-                if(sender.hasPermission("Email.reload")) {
+            } else if (opt.equalsIgnoreCase("reload")) {
+                if (sender.hasPermission("Email.reload")) {
                     plugin.loadConfig();
-                    sender.sendMessage(ChatColor.GREEN+ LG.search("answers.reload") + " ");
+                    sender.sendMessage(ChatColor.GREEN + LG.search("answers.reload") + " ");
                     return true;
                 } else {
                     sender.sendMessage(msgUseHelp);

@@ -80,6 +80,7 @@ public class ConfigAccessor {
             }
         }
     }
+
     @SuppressWarnings("unused")
     public void saveDefaultConfig() {
         if (!configFile.exists()) {

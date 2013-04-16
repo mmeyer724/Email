@@ -36,6 +36,14 @@ email:
     subject: $BOOK_TITLE
     content: $BOOK_CONTENT$NL$NLThis email was sent to you by $PLAYER_NAME.$SENDER_EMAIL_GIVEN
     in_between_pages: ' '
+rewards:
+  enable: false
+  money: 25
+  items:
+    - id: 1
+      damage: 0
+    - id: 35
+      damage: 6
 providers:
   GMAIL:
     - mail.smtp.host: smtp.gmail.com
