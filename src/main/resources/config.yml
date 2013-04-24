@@ -38,11 +38,8 @@ email:
   user: emailhere@gmail.com
   password: emailPasswordHere
   alter:
-    sender_email_given:
-      yes: You can reply to $PLAYER_NAME at $PLAYER_EMAIL.
-      no: ''
     subject: $BOOK_TITLE
-    content: $BOOK_CONTENT$NL$NLThis email was sent to you by $PLAYER_NAME.$SENDER_EMAIL_GIVEN
+    content: $BOOK_CONTENT$NL$NLThis email was sent to you by $PLAYER_NAME.
     in_between_pages: ' '
 rewards:
   enable: false
