@@ -34,21 +34,33 @@ public class ConfigAccessor {
 
     private final String fileName;
     private final JavaPlugin plugin;
-
     private File configFile;
     private FileConfiguration fileConfiguration;
 
     public ConfigAccessor(JavaPlugin plugin, String fileName) {
+        this(plugin, "", fileName);
+    }
+
+    public ConfigAccessor(JavaPlugin plugin, String subFolder, String fileName) {
         if (plugin == null)
             throw new IllegalArgumentException("plugin cannot be null");
         if (!plugin.isInitialized())
-            throw new IllegalArgumentException("plugin must be initiaized");
+            throw new IllegalArgumentException("plugin must be initialized");
         this.plugin = plugin;
         this.fileName = fileName;
-        File dataFolder = plugin.getDataFolder();
-        if (dataFolder == null)
+        File dataFolder;
+        if (!subFolder.isEmpty()) {
+            dataFolder = new File(plugin.getDataFolder(), subFolder);
+            if (!dataFolder.exists()) {
+                dataFolder.mkdir();
+            }
+        } else {
+            dataFolder = plugin.getDataFolder();
+        }
+        if (dataFolder == null || !dataFolder.exists()) {
             throw new IllegalStateException();
-        this.configFile = new File(plugin.getDataFolder(), fileName);
+        }
+        this.configFile = new File(dataFolder, fileName);
     }
 
     public void reloadConfig() {

@@ -20,8 +20,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.MetricsLite;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,22 +29,10 @@ import java.util.logging.Logger;
 
 public class Email extends JavaPlugin {
 
-    //Terminal Colors (CMD Panel)=============================
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    //Terminal Colors (CMD Panel)=============================
-
+    public final String[] VALID_LANGS = {"English", "French", "German", "German_paraphrase", "Spanish"};
     public EmailManager emails;
     public EmailTransfer mailman;
     public EmailAlter alter;
-    public YMLCreator ymlc;
 
     @Override
     public void onDisable() {
@@ -56,20 +43,40 @@ public class Email extends JavaPlugin {
     public void onEnable() {
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
-            //=== Making Languajes Folder ===
-            File nuevo = new File(this.getDataFolder(), "/Languajes/");
-            if (!nuevo.exists()) {
-                nuevo.mkdir();
+
+            File langFolder = new File(this.getDataFolder(), "languages");
+            if (!langFolder.exists()) {
+                langFolder.mkdir();
+
+                //The directory is empty if we just made it, let's copy in the languages now
+                for (String lang : this.VALID_LANGS) {
+                    String langFileName = lang + ".yml";
+                    InputStream is = this.getResource(langFileName);
+                    if (is == null) {
+                        this.getLogger().warning("Language file " + langFileName + " not found in JAR.");
+                        continue;
+                    }
+                    try {
+                        File langFile = new File(langFolder, langFileName);
+                        langFile.createNewFile();
+                        OutputStream os = new FileOutputStream(langFile);
+                        int read;
+                        byte[] bytes = new byte[1024];
+                        while ((read = is.read(bytes)) != -1) {
+                            os.write(bytes, 0, read);
+                        }
+                        os.flush();
+                        os.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            //==== End ===
-
-            // Create Languajes Files
-            ymlc = new YMLCreator(this);
-            ymlc.createLanguajes("English");
-            ymlc.createLanguajes("Spanish");
-            ymlc.createLanguajes("French");
-            //End
-
         }
         FileConfiguration config = this.getConfig();
         config.options().copyHeader(true);

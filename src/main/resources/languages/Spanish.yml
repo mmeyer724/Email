@@ -1,0 +1,45 @@
+commands:
+  help1: Usa '/email help' para Ayuda.
+  help2: Commando Invalido o no tienes permisos, usa '/email help' para obtener ayuda.
+  startEmailHelp: ~~~ Comienza la ayuda Email ~~~
+  viewPluginInformation: Para ver informacion del Plugin 
+  emailSet1: Para registrar tu Email (Solo Jugadores)
+  emailSet2: /email set tu_email@website.com (@hotmail | @gmail | @yahoo | @etc)
+  emailSetOther1: Para registrar el Email a un jugador
+  emailSetOther2: /email set <nombre del jugador> el_email@website.com (@hotmail | @gmail | @yahoo | @etc)
+  emailRemove1: Para remover tu Email (Solo Jugadores) 
+  emailRemove2: /email remove
+  emailRemoveOthers1: Para remover el Email de un Jugador
+  emailRemoveOthers2: /email remove <nombre del Jugador>
+  emailView1: Para ver tu Email (Solo Jugadores)
+  emailView2: /email view
+  emailViewOther1: Para ver el Email de un Jugador
+  emailViewOther2: /email view <nombre del Jugador>
+  emailSend1: Para enviar un Email a un jugador en especifico
+  emailSend2: /email send <nombre del Jugador>
+  emailSend3: (Debe ser con un libro escrito en la mano)
+  emailSendAll1: Para enviar un Email a todos los jugadores registrados
+  emailSendAll2: /email send
+  emailSendAll3: (Debe ser con un libro escrito en la mano)
+  emailExport1: Para exportar los Emails a un archivo de Texto
+  emailExport2: /email export <tipo, debe ser 1 o 2>
+  emailExport3: Tipo 1 va a sacar Nombres y Emails, tipo 2 sera para exportar solo los Emails.
+  endHelp: ~~~ Termina la ayuda Email ~~~
+answers:
+  invalidEmail: Email Invalido
+  emailSet: Email Registrado
+  emailRemove: Email Eliminado
+  emailView: El Email es 
+  noEmailSet: No tienes un Email Registrado
+  noEmailSetOthers: Ese jugador no tiene ningun Email Registrado
+  emailSendingDisable: Enviar Emails esta desactivado en el Servidor!
+  sorryOnlyPlayers: Losiento, Solo jugadores pueden hacer eso.
+  book: Debes tener un libro escrito en la mano para hacer eso!
+  sent: El Email esta siendo enviado! Debe ser recivido pronto.
+  emailExport1: Emails y Nombres Exportados
+  emailExport2: Emails Exportados
+  emailExportException: Tipo Incorrecto, Debe ser 1 o 2.
+  reload: Configuracion Re-Cargada!
+emailTransfer:
+  emailSent1: Email enviado a 
+  emailSent2: Error enviando Email a 

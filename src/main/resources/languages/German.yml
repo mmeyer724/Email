@@ -1,0 +1,45 @@
+commands:
+  help1: Nutze '/email help' für Hilfe
+  help2: Ungültiger Befehl oder fehlende Berechtigung, nutze '/email help' für Hilfe.
+  startEmailHelp: ~~~ Anfang Email Hilfe ~~~
+  viewPluginInformation: Zum Anzeigen von Plugininformationen
+  emailSet1: Zum Setzen deiner E-Mail (nur Spieler)
+  emailSet2: /email set deine_email@webseite.com (@hotmail | @gmail | @yahoo | @etc)
+  emailSetOther1: Zum Setzen der E-Mail eines Spielers
+  emailSetOther2: /email set <Spielername> (seine/ihre)_email@webseite.com (@hotmail | @gmail | @yahoo | @etc)
+  emailRemove1: Zum Entfernen deiner E-Mail (nur Spieler)
+  emailRemove2: /email remove
+  emailRemoveOthers1: Zum Entfernen der E-Mail eines Spielers
+  emailRemoveOthers2: /email remove <Spielername>
+  emailView1: Zum Einsehen deiner E-Mail (nur Spieler)
+  emailView2: /email view
+  emailViewOther1: Zum Einsehen der E-Mail eines Spielers
+  emailViewOther2: /email view <Spielername>
+  emailSend1: Zum Sender einer E-Mail an einen angegebenen Spieler
+  emailSend2: /email send <Spielername>
+  emailSend3: (muss ein signiertes Buch halten)
+  emailSendAll1: Zum Senden einer E-Mail an ALLE Spieler
+  emailSendAll2: /email send
+  emailSendAll3: (muss ein signiertes Buch halten)
+  emailExport1: Zum Exportieren der E-Mails in eine Textdatei
+  emailExport2: /email export <Typ, kann 1 or 2 sein>
+  emailExport3: Typ 1 gibt Namen und E-Mails aus, Type 2 exportiert nur E-Mails.
+  endHelp: ~~~ Ende Email Hilfe ~~~
+answers:
+  invalidEmail: Ungültige E-Mail
+  emailSet: E-Mail gesetzt
+  emailRemove: E-Mail entfernt
+  emailView: Die E-Mail ist 
+  noEmailSet: Du hast keine E-Mail gesetzt
+  noEmailSetOthers: Dieser Spieler hat keine E-Mail gesetzt
+  emailSendingDisable: E-Mail-Versand ist auf diesem Server deaktiviert!
+  sorryOnlyPlayers: Entschuldige, nur Spieler können das.
+  book: Du musst ein signiertes Buch halten, um das tun zu können!
+  sent: E-Mail wird gesendet! Sie sollte bald eintreffen.
+  emailExport1: E-Mails und Namen exportiert
+  emailExport2: E-Mails exportiert
+  emailExportException: Falscher Typ, muss 1 oder 2 sein.
+  reload: Konfiguration neu geladen!
+emailTransfer:
+  emailSent1: E-Mail versand an 
+  emailSent2: Fehler beim Versenden von E-Mail an 

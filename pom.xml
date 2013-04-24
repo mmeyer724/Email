@@ -18,17 +18,21 @@
 	</repositories>
 	<build>
 		<resources>
-			<resource>
-				<filtering>true</filtering>
-				<directory>${basedir}/src/main/resources/</directory>
-				<includes>
-					<include>plugin.yml</include>
-					<include>config.yml</include>
-                                        <include>English.yml</include>
-                                        <include>Spanish.yml</include>
-                                        <include>French.yml</include>
-				</includes>
-			</resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>plugin.yml</include>
+                    <include>config.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/resources/languages</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
 		</resources>
 		<defaultGoal>clean compile package</defaultGoal>
 		<sourceDirectory>${basedir}/src/main/java/</sourceDirectory>

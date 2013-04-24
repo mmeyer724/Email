@@ -28,14 +28,14 @@ public class EmailTransfer {
     private EmailProvider type;
     private String user;
     private String password;
-    LanguajeManager LA;
+    LanguageManager LA;
 
     public EmailTransfer(Email plugin, EmailProvider type, String user, String password) {
         this.plugin = plugin;
         this.type = type;
         this.user = user;
         this.password = password;
-        this.LA = new LanguajeManager(plugin);
+        this.LA = new LanguageManager(plugin);
     }
 
     public void send(String[] to, String subject, String content) {
@@ -57,10 +57,10 @@ public class EmailTransfer {
                 m.setSubject(subject);
                 m.setText(content);
                 Transport.send(m);
-                plugin.getLogger().info(LA.search("emailTransfer.emailSent1") + " " + to[counter]);
+                plugin.getLogger().info(LA.getString("emailTransfer.emailSent1") + " " + to[counter]);
             } catch (MessagingException ex) {
                 ex.printStackTrace();
-                plugin.getLogger().info(LA.search("emailTransfer.emailSent2") + " " + to[counter]);
+                plugin.getLogger().info(LA.getString("emailTransfer.emailSent2") + " " + to[counter]);
             }
         }
     }

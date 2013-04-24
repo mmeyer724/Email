@@ -1,0 +1,45 @@
+﻿commands:
+  help1: Benutze '/email help' für weitere Hilfe
+  help2: Ungültiger Befehl oder fehlende Berechtigung, nutze '/email help' für weitere Hilfe.
+  startEmailHelp: ~~~ Anfang Email Hilfe ~~~
+  viewPluginInformation: Anzeigen von Plugin-Informationen mit
+  emailSet1: Festlegen deiner E-Mail-Adresse mit
+  emailSet2: /email set deine_email_adresse@anbieter.com (@hotmail | @gmail | @yahoo | @etc)
+  emailSetOther1: Festlegen der E-Mail-Adresse eines anderen Spielers mit
+  emailSetOther2: /email set <Spielername> (seine/ihre)_email_adresse@anbieter.com (@hotmail | @gmail | @yahoo | @etc)
+  emailRemove1: Löschen deiner E-Mail-Adresse mit
+  emailRemove2: /email remove
+  emailRemoveOthers1: Löschen der E-Mail-Adresse eines anderen Spielers mit
+  emailRemoveOthers2: /email remove <Spielername>
+  emailView1: Anzeigen deiner E-Mail-Adresse mit
+  emailView2: /email view
+  emailViewOther1: Anzeigen der E-Mail-Adresse eines anderen Spielers mit
+  emailViewOther2: /email view <Spielername>
+  emailSend1: Senden einer E-Mail an einen Spieler mit
+  emailSend2: /email send <Spielername>
+  emailSend3: (muss ein signiertes Buch in seiner Hand halten)
+  emailSendAll1: Senden einer E-Mail an alle Spieler mit
+  emailSendAll2: /email send
+  emailSendAll3: (muss ein signiertes Buch in seiner Hand halten)
+  emailExport1: Exportieren einer E-Mail in eine Textdatei mit
+  emailExport2: /email export <Format, möglich sind 1 oder 2>
+  emailExport3: Format 1 gibt zugehörige Namen und E-Mails aus, Format 2 gibt nur E-Mail-Inhalte aus.
+  endHelp: ~~~ Ende Email Hilfe ~~~
+answers:
+  invalidEmail: Ungültige E-Mail-Adresse
+  emailSet: E-Mail-Adresse erfolgreich angegeben
+  emailRemove: E-Mail-Adresse erfolgreich gelöscht
+  emailView: Die E-Mail-Adresse ist 
+  noEmailSet: Du hast keine E-Mail-Adresse angegeben
+  noEmailSetOthers: Dieser Spieler hat keine E-Mail-Adresse angegeben
+  emailSendingDisable: E-Mail-Versand ist deaktiviert!
+  sorryOnlyPlayers: Muss von einem Spieler ausgeführt werden.
+  book: Du musst ein signiertes Buch in deiner Hand halten, um dies tun zu können!
+  sent:  E-Mail wurde versand! Sie sollte in Kürze eintreffen.
+  emailExport1: E-Mails und Namen erfolgreich exportiert
+  emailExport2: E-Mails erfolgreich exportiert
+  emailExportException: Ungültiges Format, möglich sind 1 oder 2.
+  reload: Config wurde neu geladen!
+emailTransfer:
+  emailSent1: E-Mail versand an 
+  emailSent2: Fehler beim Versenden der E-Mail an 

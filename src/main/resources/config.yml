@@ -1,10 +1,18 @@
+# EMAIL PLUGIN BY MIKE724
+# LICENSED UNDER THE GPLv3
+# SOURCE CODE AVAILABLE ON GITHUB:
+# https://github.com/Mike724/Email
+# VIEW MY WEBSITE AT:
+# www.mike724.com
+# -------------------------------------------------------------------------------------------------
+# language -- the language you wish to use
+#             valid languages: English, French, German, German_paraphrase, Spanish
 # -------------------------------------------------------------------------------------------------
 # EMAIL
 # enable - whether or not to enable email sending
 # type - the provider type defined in the providers configuration section
 # user - your email
 # password - obviously, this is your email's password.
-# languaje - a Languaje (  Spanish |:|  English  |:| French)
 # -- Email data alterations (alter)
 # subject - The subject of the email
 # content - The content of the email (body)
@@ -23,12 +31,12 @@
 # You can view available settings here:
 # http://javamail.kenai.com/nonav/javadocs/com/sun/mail/smtp/package-summary.html
 # $PASS will be replaced with your password (probably not needed, included just in case)
+language: English
 email:
   enable: false
   type: GMAIL
   user: emailhere@gmail.com
   password: emailPasswordHere
-  languaje: English
   alter:
     sender_email_given:
       yes: You can reply to $PLAYER_NAME at $PLAYER_EMAIL.
