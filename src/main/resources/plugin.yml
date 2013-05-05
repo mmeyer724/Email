@@ -1,9 +1,9 @@
 name: Email
 main: com.mike724.email.Email
-author: Mike724 & MainTurboCraft
+authors: [Mike724, MainTurboCraft]
 version: ${version}
 commands:
     email:
         aliases: [e, em]
-        description: Manage your email entry
+        description: Manage your email entry and send emails
         usage: /<command> help
